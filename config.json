@@ -5,22 +5,22 @@
   "logo": {
     "file": "",
     "link": "",
-    "text": "Anna Ivanov"
+    "text": "Network Graph"
   },
   "text": {
-    "more": "Network again!\n",
-    "intro": "Golden Age!\ttry",
-    "title": "Golden Age Network"
+    "title": "My Network Collection",
+    "intro": "Explore the interactive network clusters below. Click on any hub node to see its unique neighborhood connections.",
+    "more": "Data analyzed and laid out via Gephi."
   },
   "legend": {
-    "edgeLabel": "Edge",
-    "colorLabel": "Group",
-    "nodeLabel": "Node"
+    "edgeLabel": "Connections",
+    "nodeLabel": "Entities",
+    "colorLabel": "Cluster Groups"
   },
   "features": {
     "search": true,
-    "groupSelectorAttribute": false,
-    "hoverBehavior": "default"
+    "groupSelectorAttribute": true,
+    "hoverBehavior": "dim"
   },
   "informationPanel": {
     "groupByEdgeDirection": false,
@@ -28,26 +28,26 @@
   },
   "sigma": {
     "drawingProperties": {
-      "defaultEdgeType": "curve",
+      "defaultLabelColor": "#222222",
+      "defaultLabelSize": 12,
+      "defaultLabelBGColor": "#ffffff",
       "defaultHoverLabelBGColor": "#002147",
-      "defaultLabelBGColor": "#ddd",
-      "activeFontStyle": "bold",
-      "defaultLabelColor": "#000",
-      "labelThreshold": 10,
-      "defaultLabelHoverColor": "#fff",
-      "fontStyle": "bold",
+      "defaultLabelHoverColor": "#ffffff",
+      "labelThreshold": 4,
+      "defaultEdgeType": "line",
       "hoverFontStyle": "bold",
-      "defaultLabelSize": 14
+      "fontStyle": "normal",
+      "activeFontStyle": "bold"
     },
     "graphProperties": {
-      "maxEdgeSize": 0.5,
-      "minEdgeSize": 0.2,
       "minNodeSize": 1,
-      "maxNodeSize": 7
+      "maxNodeSize": 10,
+      "minEdgeSize": 0.1,
+      "maxEdgeSize": 1.0
     },
     "mouseProperties": {
-      "maxRatio": 20,
-      "minRatio": 0.75
+      "minRatio": 0.2,
+      "maxRatio": 30
     }
   }
 }
