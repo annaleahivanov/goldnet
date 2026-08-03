@@ -62,6 +62,10 @@ function initSigma(config) {
         fontStyle: "bold",
         activeFontStyle: "bold"
     };
+
+    // Force Sigma renderer to use source node colors for edges
+    drawProps.edgeColor = "source";
+    drawProps.defaultEdgeColor = "source";
     
     if (config.sigma && config.sigma.graphProperties)	
     	graphProps=config.sigma.graphProperties;
@@ -88,17 +92,17 @@ function initSigma(config) {
     a.detail = !1;
 
 
-    dataReady = function() {//This is called as soon as data is loaded
+    dataReady = function() { // Called as soon as data is loaded
 		a.clusters = {};
 
 		a.iterNodes(
-			function (b) { //This is where we populate the array used for the group select box
+			function (b) {
 				a.clusters[b.color] || (a.clusters[b.color] = []);
-				a.clusters[b.color].push(b.id);//SAH: push id not label
+				a.clusters[b.color].push(b.id);
 			}
 		);
 
-		// Map edge colors to source node colors permanently
+		// Override edge colors directly on the edge objects
 		a.iterEdges(
 			function (e) {
 				var sourceNode = a._core.graph.nodesIndex[e.source];
@@ -479,7 +483,6 @@ function nodeActive(a) {
     if (groupByDirection) {
 		//SAH - Compute intersection for mutual and remove these from incoming/outgoing
 		for (e in outgoing) {
-			//name=outgoing[e];
 			if (e in incoming) {
 				mutual[e]=outgoing[e];
 				delete incoming[e];
@@ -491,7 +494,6 @@ function nodeActive(a) {
     var createList=function(c) {
         var f = [];
     	var e = [],
-     	 	 //c = sigInst.neighbors,
         		 g;
     for (g in c) {
         var d = sigInst._core.graph.nodesIndex[g];
@@ -515,10 +517,6 @@ function nodeActive(a) {
     d = "";
 		for (g in e) {
 			c = e[g];
-			/*if (c.group != d) {
-				d = c.group;
-				f.push('<li class="cf" rel="' + c.color + '"><div class=""></div><div class="">' + d + "</div></li>");
-			}*/
 			f.push('<li class="membership"><a href="#' + c.name + '" onmouseover="sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex[\'' + c.id + '\'])\" onclick=\"nodeActive(\'' + c.id + '\')" onmouseout="sigInst.refresh()">' + c.name + "</a></li>");
 		}
 		return f;
