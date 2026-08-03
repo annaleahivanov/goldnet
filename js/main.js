@@ -77,8 +77,8 @@ function initSigma(config) {
 		mouseProps=config.sigma.mouseProperties;
 	else
 		mouseProps={
-        minRatio: 0.75,
-        maxRatio: 20,
+        minRatio: 0.75, // How far can we zoom out?
+        maxRatio: 20, // How far can we zoom in?
     	};
 	
     var a = sigma.init(document.getElementById("sigma-canvas")).drawingProperties(drawProps).graphProperties(graphProps).mouseProperties(mouseProps);
@@ -88,25 +88,23 @@ function initSigma(config) {
     a.detail = !1;
 
 
-   dataReady = function() {
+    dataReady = function() {//This is called as soon as data is loaded
 		a.clusters = {};
 
 		a.iterNodes(
-			function (b) {
+			function (b) { //This is where we populate the array used for the group select box
+
+				// note: index may not be consistent for all nodes. Should calculate each time. 
+				 // alert(JSON.stringify(b.attr.attributes[5].val));
+				// alert(b.x);
 				a.clusters[b.color] || (a.clusters[b.color] = []);
-				a.clusters[b.color].push(b.id);
+				a.clusters[b.color].push(b.id);//SAH: push id not label
 			}
+		
 		);
 	
 		a.bind("upnodes", function (a) {
 		    nodeActive(a.content[0])
-		});
-
-		a.iterEdges(function(edge) {
-			var sourceNode = a._core.graph.nodesIndex[edge.source];
-			if (sourceNode) {
-				edge.color = sourceNode.color;
-			}
 		});
 
 		a.draw();
@@ -119,6 +117,7 @@ function initSigma(config) {
 	    a.parseJson(data,dataReady);
     gexf = sigmaInst = null;
 }
+
 
 function setupGUI(config) {
 	// Initialise main interface elements
@@ -454,8 +453,8 @@ function nodeActive(a) {
             colour: b.color
         };
         
-       if (a==b.source) outgoing[b.target]=n;		//SAH
-       else if (a==b.target) incoming[b.source]=n;		//SAH
+   	   if (a==b.source) outgoing[b.target]=n;		//SAH
+	   else if (a==b.target) incoming[b.source]=n;		//SAH
        if (a == b.source || a == b.target) sigInst.neighbors[a == b.target ? b.source : b.target] = n;
        b.hidden = !1, b.attr.color = "rgba(0, 0, 0, 1)";
     });
@@ -481,8 +480,8 @@ function nodeActive(a) {
     var createList=function(c) {
         var f = [];
     	var e = [],
-             //c = sigInst.neighbors,
-    		 g;
+      	 	 //c = sigInst.neighbors,
+       		 g;
     for (g in c) {
         var d = sigInst._core.graph.nodesIndex[g];
         d.hidden = !1;
@@ -620,3 +619,5 @@ function showCluster(a) {
     }
     return !1
 }
+
+
