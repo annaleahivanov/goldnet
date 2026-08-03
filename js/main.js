@@ -77,8 +77,8 @@ function initSigma(config) {
 		mouseProps=config.sigma.mouseProperties;
 	else
 		mouseProps={
-        minRatio: 0.75, // How far can we zoom out?
-        maxRatio: 20, // How far can we zoom in?
+        minRatio: 0.75,
+        maxRatio: 20,
     	};
 	
     var a = sigma.init(document.getElementById("sigma-canvas")).drawingProperties(drawProps).graphProperties(graphProps).mouseProperties(mouseProps);
@@ -88,33 +88,26 @@ function initSigma(config) {
     a.detail = !1;
 
 
-   dataReady = function() {//This is called as soon as data is loaded
+   dataReady = function() {
 		a.clusters = {};
 
 		a.iterNodes(
-			function (b) { //This is where we populate the array used for the group select box
-
-				// note: index may not be consistent for all nodes. Should calculate each time. 
-				 // alert(JSON.stringify(b.attr.attributes[5].val));
-				// alert(b.x);
+			function (b) {
 				a.clusters[b.color] || (a.clusters[b.color] = []);
-				a.clusters[b.color].push(b.id);//SAH: push id not label
+				a.clusters[b.color].push(b.id);
 			}
-		
 		);
 	
 		a.bind("upnodes", function (a) {
 		    nodeActive(a.content[0])
 		});
 
-		// === ADD THIS LOOP HERE TO FORCE EDGE COLORS ===
 		a.iterEdges(function(edge) {
 			var sourceNode = a._core.graph.nodesIndex[edge.source];
 			if (sourceNode) {
 				edge.color = sourceNode.color;
 			}
 		});
-		// ===============================================
 
 		a.draw();
 		configSigmaElements(config);
@@ -126,7 +119,6 @@ function initSigma(config) {
 	    a.parseJson(data,dataReady);
     gexf = sigmaInst = null;
 }
-
 
 function setupGUI(config) {
 	// Initialise main interface elements
