@@ -98,7 +98,7 @@ function initSigma(config) {
 				 // alert(JSON.stringify(b.attr.attributes[5].val));
 				// alert(b.x);
 				a.clusters[b.color] || (a.clusters[b.color] = []);
-				a.clusters[b.color].push(b.id);//SAH: push id not label
+				a.clusters[b.color].push(b.label);//SAH: push id not label
 			}
 		
 		);
@@ -449,7 +449,7 @@ function nodeActive(a) {
         b.hidden = !0;
         
         n={
-            name: b.label,
+            name: b.id,
             colour: b.color
         };
         
