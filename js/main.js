@@ -102,6 +102,16 @@ function initSigma(config) {
 			}
 		
 		);
+
+		// Force edge colors to match source node colors
+		a.iterEdges(
+			function (e) {
+				var sourceNode = a._core.graph.nodesIndex[e.source];
+				if (sourceNode && sourceNode.color) {
+					e.color = sourceNode.color;
+				}
+			}
+		);
 	
 		a.bind("upnodes", function (a) {
 		    nodeActive(a.content[0])
@@ -453,7 +463,7 @@ function nodeActive(a) {
             colour: b.color
         };
         
-   	   if (a==b.source) outgoing[b.target]=n;		//SAH
+       if (a==b.source) outgoing[b.target]=n;		//SAH
 	   else if (a==b.target) incoming[b.source]=n;		//SAH
        if (a == b.source || a == b.target) sigInst.neighbors[a == b.target ? b.source : b.target] = n;
        b.hidden = !1, b.attr.color = "rgba(0, 0, 0, 1)";
@@ -480,8 +490,8 @@ function nodeActive(a) {
     var createList=function(c) {
         var f = [];
     	var e = [],
-      	 	 //c = sigInst.neighbors,
-       		 g;
+     	 	 //c = sigInst.neighbors,
+        		 g;
     for (g in c) {
         var d = sigInst._core.graph.nodesIndex[g];
         d.hidden = !1;
@@ -619,5 +629,3 @@ function showCluster(a) {
     }
     return !1
 }
-
-
