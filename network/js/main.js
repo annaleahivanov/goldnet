@@ -88,7 +88,7 @@ function initSigma(config) {
     a.detail = !1;
 
 
-   dataReady = function() {//This is called as soon as data is loaded
+    dataReady = function() {//This is called as soon as data is loaded
 		a.clusters = {};
 
 		a.iterNodes(
@@ -106,15 +106,6 @@ function initSigma(config) {
 		a.bind("upnodes", function (a) {
 		    nodeActive(a.content[0])
 		});
-
-		// === ADD THIS LOOP HERE TO FORCE EDGE COLORS ===
-		a.iterEdges(function(edge) {
-			var sourceNode = a._core.graph.nodesIndex[edge.source];
-			if (sourceNode) {
-				edge.color = sourceNode.color;
-			}
-		});
-		// ===============================================
 
 		a.draw();
 		configSigmaElements(config);
@@ -462,8 +453,8 @@ function nodeActive(a) {
             colour: b.color
         };
         
-       if (a==b.source) outgoing[b.target]=n;		//SAH
-       else if (a==b.target) incoming[b.source]=n;		//SAH
+   	   if (a==b.source) outgoing[b.target]=n;		//SAH
+	   else if (a==b.target) incoming[b.source]=n;		//SAH
        if (a == b.source || a == b.target) sigInst.neighbors[a == b.target ? b.source : b.target] = n;
        b.hidden = !1, b.attr.color = "rgba(0, 0, 0, 1)";
     });
@@ -489,8 +480,8 @@ function nodeActive(a) {
     var createList=function(c) {
         var f = [];
     	var e = [],
-             //c = sigInst.neighbors,
-    		 g;
+      	 	 //c = sigInst.neighbors,
+       		 g;
     for (g in c) {
         var d = sigInst._core.graph.nodesIndex[g];
         d.hidden = !1;
@@ -628,3 +619,5 @@ function showCluster(a) {
     }
     return !1
 }
+
+

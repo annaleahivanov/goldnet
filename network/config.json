@@ -8,8 +8,8 @@
     "text": "Anna Ivanov"
   },
   "text": {
-    "more": "Network!",
-    "intro": "Golden Age!\t",
+    "more": "Network again!\n",
+    "intro": "Golden Age!\ttry",
     "title": "Golden Age Network"
   },
   "legend": {
@@ -33,7 +33,7 @@
       "defaultLabelBGColor": "#ddd",
       "activeFontStyle": "bold",
       "defaultLabelColor": "#000",
-      "labelThreshold": 4,
+      "labelThreshold": 10,
       "defaultLabelHoverColor": "#fff",
       "fontStyle": "bold",
       "hoverFontStyle": "bold",
