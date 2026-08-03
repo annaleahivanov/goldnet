@@ -33,7 +33,7 @@
       "defaultLabelBGColor": "#ffffff",
       "defaultHoverLabelBGColor": "#002147",
       "defaultLabelHoverColor": "#ffffff",
-      "labelThreshold": 4,
+      "labelThreshold": 9,
       "defaultEdgeType": "line",
       "hoverFontStyle": "bold",
       "fontStyle": "normal",
