@@ -93,22 +93,19 @@ function initSigma(config) {
 
 		a.iterNodes(
 			function (b) { //This is where we populate the array used for the group select box
-
-				// note: index may not be consistent for all nodes. Should calculate each time. 
-				 // alert(JSON.stringify(b.attr.attributes[5].val));
-				// alert(b.x);
 				a.clusters[b.color] || (a.clusters[b.color] = []);
 				a.clusters[b.color].push(b.id);//SAH: push id not label
 			}
-		
 		);
 
-		// Force edge colors to match source node colors
+		// Map edge colors to source node colors permanently
 		a.iterEdges(
 			function (e) {
 				var sourceNode = a._core.graph.nodesIndex[e.source];
 				if (sourceNode && sourceNode.color) {
 					e.color = sourceNode.color;
+					if (!e.attr) e.attr = {};
+					e.attr['true_color'] = sourceNode.color;
 				}
 			}
 		);
@@ -466,7 +463,11 @@ function nodeActive(a) {
        if (a==b.source) outgoing[b.target]=n;		//SAH
 	   else if (a==b.target) incoming[b.source]=n;		//SAH
        if (a == b.source || a == b.target) sigInst.neighbors[a == b.target ? b.source : b.target] = n;
-       b.hidden = !1, b.attr.color = "rgba(0, 0, 0, 1)";
+       
+       // Retain original source node edge color instead of forcing black
+       var sourceNode = sigInst._core.graph.nodesIndex[b.source];
+       b.hidden = !1;
+       b.color = (sourceNode && sourceNode.color) ? sourceNode.color : (b.attr['true_color'] || b.color);
     });
     var f = [];
     sigInst.iterNodes(function (a) {
@@ -523,18 +524,7 @@ function nodeActive(a) {
 		return f;
 	}
 	
-	/*console.log("mutual:");
-	console.log(mutual);
-	console.log("incoming:");
-	console.log(incoming);
-	console.log("outgoing:");
-	console.log(outgoing);*/
-	
-	
 	var f=[];
-	
-	//console.log("neighbors:");
-	//console.log(sigInst.neighbors);
 
 	if (groupByDirection) {
 		size=Object.size(mutual);
@@ -576,17 +566,14 @@ function nodeActive(a) {
 			if (attr!=image_attribute) {
                 h = '<span><strong>' + attr + ':</strong> ' + d + '</span><br/>'
 			}
-            //temp_array.push(f.attributes[g].attr);
             e.push(h)
         }
 
         if (image_attribute) {
-        	//image_index = jQuery.inArray(image_attribute, temp_array);
         	$GP.info_name.html("<div><img src=" + f.attributes[image_attribute] + " style=\"vertical-align:middle\" /> <span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.label + "</span></div>");
         } else {
         	$GP.info_name.html("<div><span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.label + "</span></div>");
         }
-        // Image field for attribute pane
         $GP.info_data.html(e.join("<br/>"))
     }
     $GP.info_data.show();
