@@ -8,14 +8,14 @@
     "text": "Anna Ivanov"
   },
   "text": {
-    "more": "Network again!\n",
-    "intro": "Golden Age!\ttry",
+    "more": "Each node represents a poet or other individual in the dataset",
+    "intro": "Golden Age Russian poetic network!",
     "title": "Golden Age Network"
   },
   "legend": {
-    "edgeLabel": "Edge",
-    "colorLabel": "Group",
-    "nodeLabel": "Node"
+    "edgeLabel": "Connection",
+    "colorLabel": "Cluster",
+    "nodeLabel": "Person/poet"
   },
   "features": {
     "search": true,
@@ -33,7 +33,7 @@
       "defaultLabelBGColor": "#ddd",
       "activeFontStyle": "bold",
       "defaultLabelColor": "#000",
-      "labelThreshold": 5,
+      "labelThreshold": 10,
       "defaultLabelHoverColor": "#fff",
       "fontStyle": "bold",
       "hoverFontStyle": "bold",
